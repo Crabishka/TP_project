@@ -1,4 +1,4 @@
-# "Sportiqui"
+# "Sportique"
 ## Приложение для аренды спортивного инвентаря "Sportiqui"
 ### Участники
 * [Кисилева Мария](https://github.com/Mary-Kiseloyva)
