@@ -1,7 +1,7 @@
 # "Sportique"
 ## Приложение для аренды спортивного инвентаря "Sportiqui"
 ### Участники
-* [Кисилева Мария](https://github.com/Mary-Kiseloyva)
+* [Киселева Мария](https://github.com/Mary-Kiseloyva)
 * [Мошкин Никита](https://github.com/hangit777)
 * [Прядченко Георгий](https://github.com/Crabishka)
 ### Ссылки на сервисы
