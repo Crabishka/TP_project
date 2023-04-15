@@ -2,12 +2,15 @@ package entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 
+@Builder
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -15,45 +18,51 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
-    private int id;
+    private Long id;
 
-    @Column(name="total_cost")
+    @Column(name = "total_cost")
     private double totalCost;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd",  timezone="Europe/Moscow")
-    @Column(name="order_time")
-    private Date orderTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Europe/Moscow")
+    @Column(name = "order_time")
+    private ZonedDateTime orderTime;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm",  timezone="Europe/Moscow")
-    @Column(name="start_time")
-    private Date startTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Europe/Moscow")
+    @Column(name = "start_time")
+    private ZonedDateTime startTime;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm",  timezone="Europe/Moscow")
-    @Column(name="finish_time")
-    private Date finishTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Europe/Moscow")
+    @Column(name = "finish_time")
+    private ZonedDateTime finishTime;
 
-    @Column(name="product")
-    @OneToMany(mappedBy = "product")
+
+    @ManyToMany(mappedBy = "product_id")
     private List<Product> products;
 
-    @Column(name="status")
-    private String status;
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
 
-    public Order(int id, double totalCost, Date orderTime, Date startTime, Date finishTime, List<Product> products, String status) {
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
+    public Order(Long id, double totalCost, ZonedDateTime orderTime, ZonedDateTime startTime, ZonedDateTime finishTime, List<Product> products, OrderStatus orderStatus, User user) {
         this.id = id;
         this.totalCost = totalCost;
         this.orderTime = orderTime;
         this.startTime = startTime;
         this.finishTime = finishTime;
         this.products = products;
-        this.status = status;
+        this.orderStatus = orderStatus;
+        this.user = user;
     }
 
     public Order() {
 
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -66,27 +75,27 @@ public class Order {
         this.totalCost = totalCost;
     }
 
-    public Date getOrderTime() {
+    public ZonedDateTime getOrderTime() {
         return orderTime;
     }
 
-    public void setOrderTime(Date orderTime) {
+    public void setOrderTime(ZonedDateTime orderTime) {
         this.orderTime = orderTime;
     }
 
-    public Date getStartTime() {
+    public ZonedDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(ZonedDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public Date getFinishTime() {
+    public ZonedDateTime getFinishTime() {
         return finishTime;
     }
 
-    public void setFinishTime(Date finishTime) {
+    public void setFinishTime(ZonedDateTime finishTime) {
         this.finishTime = finishTime;
     }
 
@@ -98,11 +107,19 @@ public class Order {
         this.products = products;
     }
 
-    public String getStatus() {
-        return status;
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

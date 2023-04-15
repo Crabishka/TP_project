@@ -1,19 +1,27 @@
 package controller;
 
 import entity.Order;
-import entity.OrderStatus;
+import entity.ProductProperty;
 import org.springframework.web.bind.annotation.*;
 import service.OrderService;
 import service.ProductService;
 import service.UserService;
 
+import java.util.List;
+
 @RestController
 public class EmployeeController {
 
-    private UserService userService;
-    private OrderService orderService;
+    private final UserService userService;
+    private final OrderService orderService;
 
-    private ProductService productService;
+    private final ProductService productService;
+
+    public EmployeeController(UserService userService, OrderService orderService, ProductService productService) {
+        this.userService = userService;
+        this.orderService = orderService;
+        this.productService = productService;
+    }
 
     @GetMapping("/employee/orders/{order_id}")
     public Order getOrderById(@PathVariable Long OrderId) {
@@ -22,8 +30,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/orders")
-    public Order getAllProducts() throws Exception {
-        return productService.getAllProducts();
+    public List<ProductProperty> getAllProducts() throws Exception {
+        return productService.getAllProductsProperty();
     }
 
     @PutMapping("/employee/orders/approve/{user_id}")

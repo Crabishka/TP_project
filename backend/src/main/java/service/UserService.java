@@ -1,6 +1,8 @@
 package service;
 
 import EntityDTO.UserAuthDTO;
+import entity.Order;
+import entity.OrderStatus;
 import entity.Product;
 import entity.User;
 import io.jsonwebtoken.Claims;
@@ -10,13 +12,15 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import repository.ProductRepository;
 import repository.UserRepository;
 
 import javax.naming.AuthenticationException;
-import java.security.SecureRandom;
-import java.util.Base64;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static javax.crypto.Cipher.SECRET_KEY;
@@ -25,24 +29,35 @@ import static javax.crypto.Cipher.SECRET_KEY;
 public class UserService {
 
     private final UserRepository userRepository;
-    private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
-    private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe
+    private final ProductRepository productRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, ProductRepository productRepository) {
         this.userRepository = userRepository;
+        this.productRepository = productRepository;
     }
 
-    public void addProductToCart(Long userId, Long productId, int size) {
-        User user = userRepository.findById(userId);
+    @Transactional
+    public void addProductToCart(Long userId, Long productPropertyId, double size) {
+        Optional<User> user = userRepository.findById(userId);
         System.out.println("Пользователь с ID " + userId + " не найден");
 
-        Product product = new Product();
-        product.setId(Math.toIntExact(productId));
-        product.setSize(size);
+      Order order = getCartingOrder(user.get());
+      order.getProducts().add(productRepository.getProductBySizeAndProductPropertyId(size, productPropertyId));
 
-        user.getOrders().add(product);
 
-        userRepository.save(user);
+    }
+
+    public Order getCartingOrder(User user){
+        //если у юзера есть заказ в статусе картинг, то мы его возвращаем, иначе создаем
+        for (Order order: user.getOrders()){
+            if(order.getOrderStatus().equals(OrderStatus.CARTING)){
+                return order;
+            }
+        }
+        List<Product> products = new ArrayList<>();
+        Order order =  Order.builder().orderStatus(OrderStatus.CARTING).products(products).build();
+        user.getOrders().add(order);
+        return order;
     }
 
     public void authorizeUser(UserAuthDTO userAuthDTO) throws AuthenticationException {
@@ -51,14 +66,14 @@ public class UserService {
 
         // Найдем пользователя по его имени пользователя
         User user = userRepository.findByUsername(username);
-        System.out.println("Пользователь с именем пользователя " + username + " не найден");//try catch не получился, но что-то вставить надо
+        System.out.println("Пользователь с именем пользователя " + username + " не найден");
 
         if (!user.getPassword().equals(password)) {
             throw new AuthenticationException("Неправильный пароль для пользователя " + username);
         }
 
-        String token = generateToken(user);
-        authenticateWithToken(token);
+       /* String token = generateToken(user);
+        authenticateWithToken(token);*/
     }
 
     public String generateToken(User user) {
@@ -82,7 +97,7 @@ public class UserService {
         }
     }
 
-    public UsernamePasswordAuthenticationToken authenticateWithToken(String token) {
+/*    public UsernamePasswordAuthenticationToken authenticateWithToken(String token) {
         if (validateToken(token)) {
             Claims claims = Jwts.parser().setSigningKey(String.valueOf(SECRET_KEY)).parseClaimsJws(token).getBody();
             String username = claims.getSubject();
@@ -93,5 +108,5 @@ public class UserService {
             return authenticationToken;
         }
         return null;
-    }
+    }*/
 }

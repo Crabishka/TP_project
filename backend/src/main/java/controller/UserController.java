@@ -2,10 +2,10 @@ package controller;
 
 import EntityDTO.ProductSizeDTO;
 import EntityDTO.UserAuthDTO;
-import EntityDTO.UserRegDTO;
 import entity.Order;
 import entity.OrderStatus;
 import entity.Product;
+import entity.ProductProperty;
 import org.springframework.web.bind.annotation.*;
 import service.OrderService;
 import service.ProductService;
@@ -13,15 +13,24 @@ import service.UserService;
 
 import javax.naming.AuthenticationException;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 public class UserController {
 
-    private UserService userService;
-    private OrderService orderService;
-    private ProductService productService;
+    private final UserService userService;
+    private final OrderService orderService;
+    private final ProductService productService;
+
+    public UserController(UserService userService, OrderService orderService, ProductService productService) {
+        this.userService = userService;
+        this.orderService = orderService;
+        this.productService = productService;
+    }
+
+
 
     @GetMapping("/orders/{id}")
     public Order getOrderById(@PathVariable Long id) {
@@ -30,13 +39,13 @@ public class UserController {
     }
 
     @GetMapping("/products")
-    public Order getAllProducts() throws Exception {
-        return productService.getAllProducts();
+    public List<ProductProperty> getAllProducts() throws Exception {
+        return productService.getAllProductsProperty();
     }
 
     @GetMapping("/products/{id}")
-    public Product getProductById(@PathVariable Long id) {
-        Product product = productService.getProductById(id);
+    public ProductProperty getProductById(@PathVariable Long id) {
+        ProductProperty product = productService.getProductById(id);
         return product;
     }
 
@@ -46,9 +55,8 @@ public class UserController {
     }
 
     @GetMapping("/products/size")
-    public ProductSizeDTO getProductsSizeByDate(@RequestParam(name = "date") String date) {
-        Map<Integer, Boolean> sizeMap = productService.getProductSizes(date);
-        return new ProductSizeDTO(sizeMap);
+    public ProductSizeDTO getProductsSizeByDate(@RequestParam(name = "date") ZonedDateTime date, @RequestParam(name = "productProperty") ProductProperty productProperty) {
+        return productService.getProductSizes(date, productProperty);
     }
 
     @GetMapping("/products/date")
@@ -78,7 +86,7 @@ public class UserController {
         orderService.cancelActiveOrder(userId);
     }
 
-    @GetMapping("/users/login")
+    @PostMapping("/users/login")
     public void authorizeUser(@RequestBody UserAuthDTO userAuthDTO) throws AuthenticationException {
         userService.authorizeUser(userAuthDTO);
     }

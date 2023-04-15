@@ -3,6 +3,7 @@ package entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -14,12 +15,16 @@ public class Product {
     private int id;
 
     @Column(name = "product_property")
-    private double productProperty;
+    private ProductProperty productProperty;
 
     @Column(name = "size")
     private double size;
 
-    public Product(int id, double productProperty, double size) {
+
+    @ManyToMany(mappedBy = "order_id")
+    private List<Order> orders;
+
+    public Product(int id, ProductProperty productProperty, double size) {
         this.id = id;
         this.productProperty = productProperty;
         this.size = size;
@@ -38,11 +43,11 @@ public class Product {
         this.id = id;
     }
 
-    public double getProductProperty() {
+    public ProductProperty getProductProperty() {
         return productProperty;
     }
 
-    public void setProductProperty(double productProperty) {
+    public void setProductProperty(ProductProperty productProperty) {
         this.productProperty = productProperty;
     }
 

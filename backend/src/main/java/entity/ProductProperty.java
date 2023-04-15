@@ -11,7 +11,7 @@ public class ProductProperty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
-    private int id;
+    private Long id;
 
     @Column(name = "cost")
     private double cost;
@@ -22,14 +22,14 @@ public class ProductProperty {
     @Column(name = "title")
     private String title;
 
-    public ProductProperty(int id, double cost, double description, String title) {
+    public ProductProperty(Long id, double cost, double description, String title) {
         this.id = id;
         this.cost = cost;
         this.description = description;
         this.title = title;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

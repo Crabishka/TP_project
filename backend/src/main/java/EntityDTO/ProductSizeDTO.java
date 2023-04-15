@@ -5,17 +5,17 @@ import java.util.Objects;
 
 public class ProductSizeDTO {
 
-    private Map<Integer, Boolean> map;
+    private Map<Double, Boolean> map;
 
-    public ProductSizeDTO(Map<Integer, Boolean> map) {
+    public ProductSizeDTO(Map<Double, Boolean> map) {
         this.map = map;
     }
 
-    public Map<Integer, Boolean> getMap() {
+    public Map<Double, Boolean> getMap() {
         return map;
     }
 
-    public void setMap(Map<Integer, Boolean> map) {
+    public void setMap(Map<Double, Boolean> map) {
         this.map = map;
     }
 
