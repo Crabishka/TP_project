@@ -1,9 +1,12 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Builder;
+import org.hibernate.validator.internal.util.stereotypes.Lazy;
 
 
 import java.time.ZonedDateTime;
@@ -36,6 +39,7 @@ public class Order {
 
 
     @ManyToMany
+    @JsonManagedReference
     private List<Product> products;
 
     @Column(name = "status")
@@ -43,6 +47,8 @@ public class Order {
     private OrderStatus orderStatus;
 
     @ManyToOne
+    @Lazy
+    @JsonBackReference
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 

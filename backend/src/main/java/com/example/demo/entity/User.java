@@ -1,13 +1,17 @@
 package com.example.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Builder;
+import org.hibernate.validator.internal.util.stereotypes.Lazy;
 
 
 import java.util.List;
 
 @Entity
 @Table(name = "users")
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +28,8 @@ public class User {
     private String name;
 
     @Column(name = "order")
+    @Lazy
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
 

@@ -1,6 +1,8 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 
@@ -12,11 +14,11 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private int id;
 
 
     @ManyToOne
+    @JsonBackReference
     private ProductProperty productProperty;
 
     @Column(name = "size")
@@ -24,6 +26,7 @@ public class Product {
 
 
     @ManyToMany()
+    @JsonManagedReference
     private List<Order> orders;
 
     public Product(int id, ProductProperty productProperty, double size) {

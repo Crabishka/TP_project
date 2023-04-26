@@ -13,8 +13,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findOrderByOrderTime(ZonedDateTime date);
 
-
-
     Order findOrderByUserIdAndOrderStatus(Long user_id, OrderStatus orderStatus);
+
+    List<Order> findAllByUserId(Long user_id);
 
 }

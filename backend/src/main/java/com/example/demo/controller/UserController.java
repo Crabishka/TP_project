@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.EntityDTO.ProductSizeDTO;
 import com.example.demo.EntityDTO.UserAuthDTO;
+import com.example.demo.EntityDTO.UserRegDTO;
 import com.example.demo.entity.Order;
 import com.example.demo.entity.OrderStatus;
 import com.example.demo.entity.ProductProperty;
@@ -33,9 +34,9 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    @PostMapping("/user")
-    public User createUser(@RequestBody User user){
-        return userRepository.save(user);
+    @PostMapping("/user")//
+    public User createUser(@RequestBody UserRegDTO user){
+        return userRepository.save(user.toUser());
     }
 
     @GetMapping("/orders/{id}")
@@ -44,9 +45,14 @@ public class UserController {
         return order;
     }
 
-    @GetMapping("/products")
+    @GetMapping("/products")//
     public List<ProductProperty> getAllProducts() throws Exception {
         return productService.getAllProductsProperty();
+    }
+
+    @GetMapping("/user_orders/{id}")//
+    public List<Order> getAllOrders(@PathVariable Long id) throws Exception {
+        return orderService.getAllOrders(id);
     }
 
     @GetMapping("/products/{id}")

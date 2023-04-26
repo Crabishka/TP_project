@@ -7,6 +7,7 @@ import com.example.demo.repository.ProductPropertiesRepository;
 import com.example.demo.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -85,5 +86,10 @@ public class OrderService {
             activeOrder.setOrderStatus(OrderStatus.FINISHED);
             orderRepository.save(activeOrder);
         }
+    }
+
+    public List<Order> getAllOrders(Long user_id) {
+        List<Order> orderList = orderRepository.findAllByUserId(user_id);
+        return orderList;
     }
 }

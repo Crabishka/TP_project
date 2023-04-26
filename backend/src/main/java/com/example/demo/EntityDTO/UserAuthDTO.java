@@ -1,7 +1,6 @@
 package com.example.demo.EntityDTO;
 
 public class UserAuthDTO {
-
     private String username;
     private String password;
     public String getUsername() {
