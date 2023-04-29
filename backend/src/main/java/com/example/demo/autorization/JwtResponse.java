@@ -1,5 +1,8 @@
 package com.example.demo.autorization;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class JwtResponse {
 
     private final String type = "Bearer";

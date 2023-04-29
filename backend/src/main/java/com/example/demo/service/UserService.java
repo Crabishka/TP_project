@@ -9,6 +9,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.repository.ProductRepository;
@@ -33,26 +34,31 @@ public class UserService {
         this.productRepository = productRepository;
     }
 
+
+    public Optional<User> getByLogin(@NotNull String phoneNumber) {
+        return userRepository.findByPhoneNumber(phoneNumber);
+    }
+
     @Transactional
     public void addProductToCart(Long userId, Long productPropertyId, double size) {
         Optional<User> user = userRepository.findById(userId);
         System.out.println("Пользователь с ID " + userId + " не найден");
 
-      Order order = getCartingOrder(user.get());
-      order.getProducts().add(productRepository.getProductBySizeAndProductPropertyId(size, productPropertyId));
+        Order order = getCartingOrder(user.get());
+        order.getProducts().add(productRepository.getProductBySizeAndProductPropertyId(size, productPropertyId));
 
 
     }
 
-    public Order getCartingOrder(User user){
+    public Order getCartingOrder(User user) {
         //если у юзера есть заказ в статусе картинг, то мы его возвращаем, иначе создаем
-        for (Order order: user.getOrders()){
-            if(order.getOrderStatus().equals(OrderStatus.CARTING)){
+        for (Order order : user.getOrders()) {
+            if (order.getOrderStatus().equals(OrderStatus.CARTING)) {
                 return order;
             }
         }
         List<Product> products = new ArrayList<>();
-        Order order =  Order.builder().orderStatus(OrderStatus.CARTING).products(products).build();
+        Order order = Order.builder().orderStatus(OrderStatus.CARTING).products(products).build();
         user.getOrders().add(order);
         return order;
     }
