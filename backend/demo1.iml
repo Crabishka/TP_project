@@ -14,9 +14,7 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
-        <datasource-mapping>
-          <factory-entry name="entityManagerFactory" />
-        </datasource-mapping>
+        <datasource-mapping />
         <naming-strategy-map />
       </configuration>
     </facet>
@@ -140,5 +138,7 @@
     <orderEntry type="library" name="Maven: jakarta.validation:jakarta.validation-api:3.0.2" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.5.0.Final" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml:classmate:1.5.1" level="project" />
+    <orderEntry type="library" name="Maven: org.xerial:sqlite-jdbc:3.28.0" level="project" />
+    <orderEntry type="library" name="Maven: org.hibernate.orm:hibernate-community-dialects:6.1.7.Final" level="project" />
   </component>
 </module>
