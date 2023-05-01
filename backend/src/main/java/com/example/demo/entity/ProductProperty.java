@@ -22,6 +22,9 @@ public class ProductProperty {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "photo")
+    private String photo;
+
     public ProductProperty(Long id, double cost, String description, String title) {
         this.id = id;
         this.cost = cost;
@@ -59,5 +62,13 @@ public class ProductProperty {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

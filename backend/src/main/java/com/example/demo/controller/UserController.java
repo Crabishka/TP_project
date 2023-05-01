@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.EntityDTO.ProductSizeDTO;
 import com.example.demo.EntityDTO.UserAuthDTO;
 import com.example.demo.EntityDTO.UserRegDTO;
+import com.example.demo.EntityDTO.JwtResponse;
 import com.example.demo.entity.Order;
 import com.example.demo.entity.OrderStatus;
 import com.example.demo.entity.ProductProperty;
@@ -105,8 +106,18 @@ public class UserController {
     }
 
     @PostMapping("/users/login")
-    public void authorizeUser(@RequestBody UserAuthDTO userAuthDTO) throws AuthenticationException {
-        userService.authorizeUser(userAuthDTO);
+    public JwtResponse authorizeUser(@RequestBody UserAuthDTO userAuthDTO) throws AuthenticationException {
+        return userService.authorizeUser(userAuthDTO);
+    }
+
+    @PostMapping("/order")
+    public Order createOrder(@RequestBody Order order) {
+        return orderService.createOrder(order.getOrderTime(), order.getProducts(), order.getUser());
+    }
+
+    @PostMapping("/users/{userId}/order")
+    public Order addOrderToUser(@PathVariable Long userId, @RequestBody Order order) {
+        return orderService.addOrderToUser(order, userId);
     }
 
 

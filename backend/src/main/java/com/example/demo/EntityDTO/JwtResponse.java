@@ -1,17 +1,13 @@
-package com.example.demo.autorization;
+package com.example.demo.EntityDTO;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class JwtResponse {
 
-    private final String type = "Bearer";
     private String accessToken;
     private String refreshToken;
 
-    public String getType() {
-        return type;
-    }
 
     public String getAccessToken() {
         return accessToken;

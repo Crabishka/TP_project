@@ -36,7 +36,7 @@ public class User implements UserDetails {
     @Column(name = "order")
     @Lazy
     @JsonManagedReference
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> orders;
 
     @Column(name = "role")
