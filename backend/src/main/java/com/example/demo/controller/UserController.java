@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/user")//
-    public User createUser(@RequestBody UserRegDTO user){
+    public User createUser(@RequestBody UserRegDTO user) {
         return userRepository.save(user.toUser());
     }
 
@@ -43,6 +43,12 @@ public class UserController {
     public Order getOrderById(@PathVariable Long id) {
         Order order = orderService.getOrderById(id);
         return order;
+    }
+
+    @GetMapping("/user/{id}")
+    public String getUserById(@PathVariable Long id) {
+        User user = userRepository.getReferenceById(id);
+        return user.getName();
     }
 
     @GetMapping("/products")//
