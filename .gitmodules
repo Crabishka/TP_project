@@ -1,9 +1,9 @@
-[submodule "backend/TP_project_backend"]
-	path = backend/TP_project_backend
-	url = https://github.com/Crabishka/TP_project_backend.git
 [submodule "mobile_client"]
 	path = mobile_client
 	url = https://github.com/Crabishka/TP_project_mobile_client.git
 [submodule "mobile_employee"]
 	path = mobile_employee
 	url = https://github.com/Crabishka/TP_project_mobile_employee.git
+[submodule "backend"]
+	path = backend
+	url = https://github.com/Crabishka/TP_project_backend.git
