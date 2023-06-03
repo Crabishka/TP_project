@@ -12,4 +12,6 @@
 * [Курсовая_работа.pdf](https://github.com/Crabishka/TP_project/blob/main/Documentation/Coursework.pdf)
 * [Техническое задание.doc](https://github.com/Crabishka/TP_project/blob/main/Documentation/Technical_specification.docx)
 * [Техническое задание.pdf](https://github.com/Crabishka/TP_project/blob/main/Documentation/Technical_specification.pdf)
+* [Презентация.pptx](https://github.com/Crabishka/TP_project/blob/main/Documentation/presentaion.pptx)
+* [Презентация.pdf](https://github.com/Crabishka/TP_project/blob/main/Documentation/presentation.pdf)
 * [Swagger](https://1469629-cm31020.tw1.ru/swagger-ui/index.html#/)
