@@ -15,6 +15,11 @@
 * [Презентация.pptx](https://github.com/Crabishka/TP_project/blob/main/Documentation/presentaion.pptx)
 * [Презентация.pdf](https://github.com/Crabishka/TP_project/blob/main/Documentation/presentation.pdf)
 * [Swagger](https://1469629-cm31020.tw1.ru/swagger-ui/index.html#/)
+### Ссылки на видео
+* [Видео с архитектурой Backend](https://www.youtube.com/watch?v=v4bwcyjoNO8&ab_channel=ГеоргийПрядченко)
+* [Видео с архитектурой Frontend](https://www.youtube.com/watch?v=BFyPUOu7Mkc&ab_channel=ГеоргийПрядченко)
+* [Видео с развертыванием приложения](https://www.youtube.com/watch?v=P6WxR3UhYv4&ab_channel=ГеоргийПрядченко)
+* [Видео с демонстрацией мобильного приложения](https://www.youtube.com/watch?v=a7TLlprT-nE&ab_channel=ГеоргийПрядченко)
 ### Ссылки на код
 * [Backend](https://github.com/Crabishka/TP_project_backend/tree/main)
 * [Frontend for client](https://github.com/Crabishka/TP_project_mobile_client/tree/main)
