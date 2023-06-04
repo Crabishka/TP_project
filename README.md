@@ -20,7 +20,8 @@
 * [Frontend for client](https://github.com/Crabishka/TP_project_mobile_client/tree/main)
 * [Frontend for employee](https://github.com/Crabishka/TP_project_mobile_employee/tree/main)
 ### Ссылки на аналитику
-* [Отчет в Firebase (Требует подтверждения)](https://analytics.google.com/analytics/web/#/p377483029/reports/dashboard?params=_r.5..selmet%3D%5B%22userEngagementDurationPerUser%22%5D&r=5337636484)
+* [Полный отчет в Firebase (Требует подтверждения)](https://analytics.google.com/analytics/web/#/p377483029/reports/dashboard?params=_r.5..selmet%3D%5B%22userEngagementDurationPerUser%22%5D&r=5337636484)
+* [Скрин части отчета в Firebase](https://github.com/Crabishka/TP_project/blob/main/Documentation/Analytics%20screen.jpg)
 ### Ссылки на мобильные приложения
 * [Для клиента](https://github.com/Crabishka/TP_project/blob/main/Apks/client_release_app.apk)
 * [Для работника](https://github.com/Crabishka/TP_project/blob/main/Apks/employee_release_app.apk)
